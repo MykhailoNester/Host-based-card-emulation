@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Host-based-card-emulation</string>
+
+    <string name="nfc_service_description">Host Card Emulator Service</string>
+    <string name="nfc_aid_description">HCE AID</string>
+
+    <string name="text_to_send">Text to send:</string>
+    <string name="start_service">Start service</string>
+    <string name="stop_service">Stop service</string>
+    <string name="hce_not_available">Status: FEATURE_NFC_HOST_CARD_EMULATION not available</string>
+    <string name="service_enabled">Status: service enabled</string>
+    <string name="service_disabled">Status: service disabled</string>
+
+    <string name="nfc_turn_on_title">NFC is turned off.</string>
+    <string name="nfc_turn_on_message">You need turn on NFC module for scanning. Wish turn on it now?</string>
+    <string name="nfc_turn_on_positive">Turn on</string>
+    <string name="nfc_turn_on_negative">Dismiss</string>
 </resources>
