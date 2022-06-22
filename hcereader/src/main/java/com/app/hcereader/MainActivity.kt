@@ -29,10 +29,10 @@ import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.nfc.NfcManager
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.app.hcereader.databinding.ActivityMainBinding
 import com.app.hcereader.nfc.NdefParser
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
@@ -72,27 +71,27 @@ class MainActivity : AppCompatActivity() {
             val nfcPendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
             adapter?.enableForegroundDispatch(this, nfcPendingIntent, null, null)
             binding.stateTextView.text = getString(R.string.nfc_enabled)
-            Log.d("NfcFragment", "NFC enabled")
+            Timber.d("NFC enabled")
 
         } catch (ex: IllegalStateException) {
             binding.stateTextView.text = getString(R.string.nfc_enable_error)
-            Log.e("NfcFragment", "Error enabling NFC foreground dispatch", ex)
+            Timber.e(ex, "Error enabling NFC foreground dispatch")
         }
     }
 
     private fun disableNfcForegroundDispatch() {
         try {
             adapter?.disableForegroundDispatch(this)
-            Log.d("NfcFragment", "NFC disabled")
+            Timber.d("NFC disabled")
 
         } catch (ex: IllegalStateException) {
-            Log.e("NfcFragment", "Error disabling NFC foreground dispatch", ex)
+            Timber.e("Error disabling NFC foreground dispatch", ex)
         }
     }
 
     private fun handleIntent(intent: Intent) {
-        when (intent.action) {
-            NfcAdapter.ACTION_NDEF_DISCOVERED -> checkNdefMessage(intent)
+        if (intent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
+            checkNdefMessage(intent)
         }
     }
 
@@ -123,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         if (message.isNotEmpty()) {
             binding.messageValue.text = message
         } else {
-            Log.d("MainActivity", "Received empty NDEFMessage")
+            Timber.d("Received empty NDEFMessage")
         }
     }
 }

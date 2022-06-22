@@ -23,7 +23,7 @@
 package com.app.hcereader.nfc
 
 class TextRecord(
-    val text: String
+    private val text: String
 ) : ParsedNdefRecord {
 
     override fun str(): String = text

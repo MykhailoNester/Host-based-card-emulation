@@ -24,7 +24,7 @@ package com.app.hcereader.nfc
 
 import android.nfc.NdefMessage
 import android.nfc.NdefRecord
-import android.util.Log
+import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.util.*
 import kotlin.experimental.and
@@ -68,7 +68,7 @@ fun NdefRecord.parse(): ParsedNdefRecord? =
 
             TextRecord(text)
         } catch (e: UnsupportedEncodingException) {
-            Log.w("NdefRecord", "We got a malformed tag.")
+            Timber.w("We got a malformed tag.")
             null
         }
     } else {

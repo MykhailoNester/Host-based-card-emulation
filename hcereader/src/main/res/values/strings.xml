@@ -23,11 +23,7 @@
 <resources>
     <string name="app_name">HCE-Reader</string>
 
-    <string name="scan_nfc_code">Scan NFC code</string>
     <string name="nfc_enable_error">Error enabling NFC</string>
     <string name="nfc_enabled">NFC enabled</string>
-    <string name="main_fragment_label" />
-    <string name="first_fragment_label">Main fragment</string>
-    <string name="nfc_fragment_label">NfcFragment</string>
     <string name="ndef_message_title">NDEF message:</string>
 </resources>

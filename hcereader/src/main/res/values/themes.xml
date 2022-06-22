@@ -20,7 +20,7 @@
   ~  Created by mykhailo.nester on 23/05/2022, 17:53
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Hostbasedcardemulation" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -31,9 +31,6 @@
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
     </style>
 
     <style name="Theme.Hostbasedcardemulation.NoActionBar">
@@ -41,7 +38,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Hostbasedcardemulation.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Hostbasedcardemulation.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
