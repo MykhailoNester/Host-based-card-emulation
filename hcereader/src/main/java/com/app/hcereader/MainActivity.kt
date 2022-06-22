@@ -22,12 +22,14 @@
 
 package com.app.hcereader
 
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
+import android.nfc.NfcManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.app.hcereader.databinding.ActivityMainBinding
 import com.app.hcereader.nfc.NdefParser
@@ -35,6 +37,7 @@ import com.app.hcereader.nfc.NdefParser
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var adapter: NfcAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +46,48 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onResume() {
+        super.onResume()
+        enableNfcForegroundDispatch()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        disableNfcForegroundDispatch()
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
+    }
+
+    private fun enableNfcForegroundDispatch() {
+        if (adapter == null) {
+            val nfcManager = getSystemService(Context.NFC_SERVICE) as NfcManager
+            adapter = nfcManager.defaultAdapter
+        }
+
+        try {
+            val intent = Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            val nfcPendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+            adapter?.enableForegroundDispatch(this, nfcPendingIntent, null, null)
+            binding.stateTextView.text = getString(R.string.nfc_enabled)
+            Log.d("NfcFragment", "NFC enabled")
+
+        } catch (ex: IllegalStateException) {
+            binding.stateTextView.text = getString(R.string.nfc_enable_error)
+            Log.e("NfcFragment", "Error enabling NFC foreground dispatch", ex)
+        }
+    }
+
+    private fun disableNfcForegroundDispatch() {
+        try {
+            adapter?.disableForegroundDispatch(this)
+            Log.d("NfcFragment", "NFC disabled")
+
+        } catch (ex: IllegalStateException) {
+            Log.e("NfcFragment", "Error disabling NFC foreground dispatch", ex)
+        }
     }
 
     private fun handleIntent(intent: Intent) {
@@ -79,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
         val message = builder.toString()
         if (message.isNotEmpty()) {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            binding.messageValue.text = message
         } else {
             Log.d("MainActivity", "Received empty NDEFMessage")
         }
