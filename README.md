@@ -10,4 +10,4 @@ The repository includes two modules:
 - app: HCE card emulation with an input field for text data transferring and two action buttons for service enable/disable switch.
 - hcereader: reader application. By default on launch, it will enable NFC reader functionality and be ready to scan.
 
-<img src="/docs/resources/hce_app.png" width="200" /> <img src="/docs/resources/reader_app.png" width="200" />
+<img src="/docs/hce_app.png" width="200" />  <img src="/docs/reader_app.png" width="185" />
